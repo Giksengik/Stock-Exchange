@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/stockInListBlock"
+    android:layout_width="match_parent"
+    android:layout_height="68dp"
+    android:layout_marginLeft="16dp"
+    android:layout_marginTop="8dp"
+    android:layout_marginRight="16dp">
+
+    <ImageView
+        android:id="@+id/companyInListIcon"
+        android:layout_width="52dp"
+        android:layout_height="52dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/undefined_stock_icon"
+        android:background="@drawable/company_icon_round_corners"
+        />
+
+    <TextView
+        android:id="@+id/stockInListTicker"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="14dp"
+        android:text="TEST"
+        android:textColor="@color/primary_text"
+        android:textSize="18sp"
+        app:layout_constraintStart_toEndOf="@+id/companyInListIcon"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/companyNameInList"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:text="TEST"
+        android:textColor="@color/primary_text"
+        android:textSize="12sp"
+        android:fontFamily="@font/montserrat_regular"
+        app:layout_constraintStart_toEndOf="@+id/companyInListIcon"
+        app:layout_constraintTop_toBottomOf="@+id/stockInListTicker" />
+
+    <ImageButton
+        android:id="@+id/imageButtonIsStockFavourite"
+        android:layout_width="16dp"
+        android:layout_height="16dp"
+        android:layout_marginStart="6dp"
+        android:layout_marginTop="17dp"
+        app:layout_constraintStart_toEndOf="@+id/stockInListTicker"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/button_not_favourite_stock" />
+
+    <TextView
+        android:id="@+id/stockPriceInList"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="14dp"
+        android:layout_marginEnd="17dp"
+        android:text="TextView"
+        android:textColor="@color/primary_text"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/stockPriceChangeInList"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="12dp"
+        android:text="TextView"
+        android:textColor="@color/primary_text"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/stockPriceInList" />
+</androidx.constraintlayout.widget.ConstraintLayout>

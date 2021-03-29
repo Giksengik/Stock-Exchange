@@ -1,0 +1,22 @@
+<resources>
+    <string name="app_name">Stock Exchange</string>
+    <string name="tab_text_1">Stocks</string>
+    <string name="tab_text_2">Favourite</string>
+    <string name="app_label">Stocks Exchange</string>
+    <string name="search_hint">Search stocks</string>
+    <string name="search_title">Search stocks</string>
+    <string name="company_tab_text_1">Chart</string>
+    <string name="company_tab_text_2">Summary</string>
+    <string name="company_tab_text_3">News</string>
+    <string name="company_tab_text_4">Forecasts</string>
+    <string name="company_tab_text_5">Ideas</string>
+    <string name="backbutton">backButton</string>
+    <string name="country_in_company_info">Country</string>
+    <string name="market_capitalization_in_company_info">Market Capitalization</string>
+    <string name="web_site_in_company_info">Web site</string>
+    <string name="popular_requests_in_search">Popular requests</string>
+    <string name="you_ve_searched_for_this_in_search">You’ve searched for this</string>
+    <string name="stocks_in_search">Stocks</string>
+    <string name="hint_search">Enter the required query into the search bar and confirm</string>
+    <string name="isfavouritebutton">isFavouriteButton</string>
+</resources>
