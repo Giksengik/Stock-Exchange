@@ -91,4 +91,59 @@ public class Converters {
         }
         return (dayNum + " " +  month + " " + yearNum);
     }
+    // Date format - yyyy-MM-dd, n < 28
+    public static String getDataNDaysAgo(String date,int N){
+        int year = Integer.parseInt(date.substring(0,4));
+        int month = Integer.parseInt(date.substring(5,7));
+        int day = Integer.parseInt(date.substring(8));
+        int dayToReturn = day - N;
+        int monthToReturn = 0;
+        int yearToReturn;
+        if(dayToReturn <= 0) {
+            monthToReturn = month - 1;
+            switch(month){
+                case 12:
+                    dayToReturn = 30 - day - 1;
+                    break;
+                case 11:
+                    dayToReturn = 31 - day - 1;
+                    break;
+                case 10:
+                    dayToReturn = 30 - day - 1;
+                    break;
+                case 9:
+                    dayToReturn = 31 - day - 1;
+                    break;
+                case 8:
+                    dayToReturn = 31 - day - 1;
+                    break;
+                case 7:
+                    dayToReturn = 30 - day - 1;
+                    break;
+                case 6:
+                    dayToReturn = 31 - day - 1;
+                    break;
+                case 5:
+                    dayToReturn = 30 - day - 1;
+                    break;
+                case 4:
+                    dayToReturn = 31 - day - 1;
+                    break;
+                case 3:
+                    dayToReturn = 28 - day - 1;
+                    break;
+                case 2:
+                    dayToReturn = 31 - day - 1;
+                    break;
+                case 1:
+                    dayToReturn = 31 - day - 1;
+                    yearToReturn = year - 1;
+                    monthToReturn = 12;
+                    break;
+            }
+        }
+        String monthString = (monthToReturn > 9) ? monthToReturn + "" : "0" + monthToReturn;
+        String dayString = (dayToReturn > 9) ? dayToReturn + "" : "0" + dayToReturn;
+        return year + "-" + monthString + "-" + dayString;
+    }
 }

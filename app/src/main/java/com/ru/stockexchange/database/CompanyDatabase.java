@@ -11,7 +11,7 @@ import com.google.gson.internal.$Gson$Preconditions;
 import com.ru.stockexchange.database.DAO.CompanyDAO;
 import com.ru.stockexchange.database.entities.Company;
 
-@Database(entities = {Company.class}, version = 2, exportSchema = false)
+@Database(entities = {Company.class}, version = 1, exportSchema = false)
 public abstract class CompanyDatabase extends RoomDatabase {
     public abstract CompanyDAO companyDAO();
     private static CompanyDatabase INSTANCE;

@@ -15,6 +15,8 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.anychart.AnyChart;
 import com.anychart.AnyChartView;
@@ -33,6 +35,8 @@ import com.ru.stockexchange.CompanyActivity;
 import com.ru.stockexchange.Converters;
 import com.ru.stockexchange.MainActivity;
 import com.ru.stockexchange.R;
+import com.ru.stockexchange.adapters.NewsAdapter;
+import com.ru.stockexchange.api.models.CompanyNews;
 import com.ru.stockexchange.api.models.HistoricalPrice;
 import com.ru.stockexchange.api.models.HistoricalPrices;
 import com.ru.stockexchange.database.entities.Company;
@@ -57,6 +61,7 @@ public class PlaceHolderFragmentCompany extends Fragment {
     private MaterialButton materialButtonM ;
     private MaterialButton materialButtonW ;
     private AnyChartView mAnyChartView;
+    private int mIndex;
     public static PlaceHolderFragmentCompany newInstance(int index) {
         PlaceHolderFragmentCompany fragment = new PlaceHolderFragmentCompany();
         Bundle bundle = new Bundle();
@@ -81,7 +86,7 @@ public class PlaceHolderFragmentCompany extends Fragment {
         if (getArguments() != null) {
             index = getArguments().getInt(ARG_SECTION_NUMBER);
         }
-
+        mIndex = index;
         View root;
         switch(index){
             case 2:
@@ -94,6 +99,17 @@ public class PlaceHolderFragmentCompany extends Fragment {
                 }
                 break;
             case 3:
+                root = inflater.inflate(R.layout.fragment_company_news, container, false);
+//                Пока не удается решить проблему с API запросом, в дальнейшем обязательно это исправлю и будут показываться новости
+//                RecyclerView newsView = root.findViewById(R.id.newsView);
+//                newsView.setLayoutManager(new LinearLayoutManager(getContext()));
+//                NewsAdapter newsAdapter = new NewsAdapter((news, position) -> {
+//                });
+//                newsView.setAdapter(newsAdapter);
+//                mCompanyViewModel.getCompanyNews().observe(getViewLifecycleOwner(), companyNews -> {
+//                    newsAdapter.setNews(companyNews);
+//                });
+//                mCompanyViewModel.uploadCompanyNews(mCompany);
                 return inflater.inflate(R.layout.fragment_company_news, container, false);
             case 4:
                 return inflater.inflate(R.layout.fragment_company_forecast, container, false);
@@ -120,8 +136,7 @@ public class PlaceHolderFragmentCompany extends Fragment {
                 );
                 mCompanyViewModel.
                         getHistoricalPrices().
-                        observe(getViewLifecycleOwner(), (
-                        Observer<HistoricalPrices>) historicalPrices -> {
+                        observe(getViewLifecycleOwner(), historicalPrices -> {
                             mHistoricalPrices = historicalPrices;
                     for(int i = historicalPrices.prices.size() - 1; i >= 0; i--){
                         mChartData.add(new ValueDataEntry(
@@ -232,5 +247,16 @@ public class PlaceHolderFragmentCompany extends Fragment {
     private void startMainActivity() {
         Intent i = new Intent(getActivity(), MainActivity.class);
         startActivity(i);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
     }
 }

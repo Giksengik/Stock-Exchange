@@ -1,5 +1,8 @@
 package com.ru.stockexchange.api;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -15,9 +18,12 @@ public class NetworkService {
     private Retrofit mRetrofit;
     static final String DATEFORMAT = "yyyy-MM-dd";
     public NetworkService() {
+        Gson gson = new GsonBuilder()
+                .setLenient()
+                .create();
         mRetrofit = new Retrofit.Builder()
                 .baseUrl(BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create(gson))
                 .build();
     }
     public JSONPlaceHolderAPI getJSONApi(){

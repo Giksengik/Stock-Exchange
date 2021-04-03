@@ -7,13 +7,11 @@ import android.widget.Toast;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
-import com.anychart.AnyChartView;
-import com.anychart.chart.common.dataentry.ValueDataEntry;
 import com.ru.stockexchange.Converters;
 import com.ru.stockexchange.api.AdditionalNetworkService;
 import com.ru.stockexchange.api.NetworkService;
-import com.ru.stockexchange.api.models.HistoricalPrice;
 import com.ru.stockexchange.api.models.HistoricalPrices;
+import com.ru.stockexchange.api.models.CompanyNews;
 import com.ru.stockexchange.api.models.RequestResult;
 import com.ru.stockexchange.api.models.StockQuote;
 import com.ru.stockexchange.database.CompanyDatabase;
@@ -43,6 +41,7 @@ public class CompanyRepository {
     private MutableLiveData<List<Company>> mReceivedCompanies;
     private AdditionalNetworkService mAdditionalNetworkService;
     private MutableLiveData<HistoricalPrices> mHistoricalPrices;
+    private MutableLiveData<List<CompanyNews>> mCompanyNews;
     private static final String START_UPDATING = "Start updating companies";
     private static final String COMPANIES_UPDATED = "Companies are updated";
 
@@ -61,6 +60,7 @@ public class CompanyRepository {
         mAllFavouriteCompanies = mCompanyDAO.getAllFavourite();
         mNetworkService = new NetworkService();
         mAdditionalNetworkService = new AdditionalNetworkService();
+        mCompanyNews = new MutableLiveData<>();
         mReceivedCompanies = new MutableLiveData<>();
         mHistoricalPrices =  new MutableLiveData<>();
     }
@@ -73,6 +73,8 @@ public class CompanyRepository {
         return mReceivedCompanies;
     }
 
+    public LiveData<List<CompanyNews>> getCompanyNews() {return mCompanyNews;}
+
     public LiveData<List<Company>> getAllCompanies() {
         return mAllCompanies;
     }
@@ -81,6 +83,31 @@ public class CompanyRepository {
         return mAllFavouriteCompanies;
     }
 
+    public void uploadCompanyNews (Company company) {
+        new Thread() {
+            @Override
+            public void run() {
+                super.run();
+                String todayDate = NetworkService.GetUTCdatetimeAsString();
+                String nextData = Converters.getDataNDaysAgo(todayDate,7);
+                mNetworkService.getJSONApi()
+                        .getCompanyNews(company.ticker,nextData,todayDate)
+                        .enqueue(new Callback<List<CompanyNews>>() {
+                            @Override
+                            public void onResponse(Call<List<CompanyNews>> call, Response<List<CompanyNews>> response) {
+                                if(response.body() != null){
+                                    mCompanyNews.postValue(response.body());
+                                }
+                            }
+
+                            @Override
+                            public void onFailure(Call<List<CompanyNews>> call, Throwable t) {
+                                t.printStackTrace();
+                            }
+                        });
+            }
+        }.start();
+    }
     public void loadCompaniesByQuery(String query, Application application) {
         List<Company> companiesToShow = new ArrayList<>();
         ;

@@ -5,6 +5,7 @@ import android.app.Application;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
+import com.ru.stockexchange.api.models.CompanyNews;
 import com.ru.stockexchange.api.models.HistoricalPrices;
 import com.ru.stockexchange.repositories.CompanyRepository;
 import com.ru.stockexchange.database.entities.Company;
@@ -61,4 +62,7 @@ public class CompanyViewModel extends AndroidViewModel {
     public void uploadHistoricalPrices(Company company){
         mCompanyRepository.uploadHistoricalPrices(company);
     }
+    public LiveData<List<CompanyNews>> getCompanyNews(){ return mCompanyRepository.getCompanyNews();}
+
+    public void uploadCompanyNews(Company company){ mCompanyRepository.uploadCompanyNews(company);}
 }

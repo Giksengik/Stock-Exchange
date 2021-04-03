@@ -2,6 +2,7 @@ package com.ru.stockexchange.adapters;
 
 import android.annotation.SuppressLint;
 import android.graphics.Color;
+import android.icu.text.Edits;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,7 +21,9 @@ import com.ru.stockexchange.view_models.CompanyViewModel;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+import java.util.TreeMap;
 
 public class StockAdapter extends RecyclerView.Adapter<StockAdapter.ViewHolder> {
     public List<Company> mCompanies = new ArrayList<>();
@@ -106,8 +109,30 @@ public class StockAdapter extends RecyclerView.Adapter<StockAdapter.ViewHolder> 
         holder.companyIcon.setClipToOutline(true);
     }
     public void setCompanies(List<Company> companies){
-        mCompanies = companies;
-        notifyDataSetChanged();
+        if(mCompanies != null && mCompanies.size() != 0){
+            TreeMap<Integer,Company> companiesToAssign = new TreeMap<>();
+            for (int i = 0; i < companies.size(); i++) {
+                if(mCompanies.size() > i){
+                    if(mCompanies.get(i).price != companies.get(i).price || mCompanies.get(i).priceChange != companies.get(i).priceChange){
+                        companiesToAssign.put(i, companies.get(i));
+                    }
+                }else{
+                    companiesToAssign.put(i, companies.get(i));
+                }
+            }
+            for (int nextNum : companiesToAssign.keySet()) {
+                if (mCompanies.size() > nextNum) {
+                    mCompanies.set(nextNum, companiesToAssign.get(nextNum));
+                    notifyItemChanged(nextNum);
+                } else {
+                    mCompanies.add(companiesToAssign.get(nextNum));
+                    notifyDataSetChanged();
+                }
+            }
+        }else{
+            mCompanies = companies;
+            notifyDataSetChanged();
+        }
     }
     public List<Company> getData(){
         return mCompanies;
