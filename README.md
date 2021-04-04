@@ -1,4 +1,5 @@
 
 # Stock-Exchange
-Обзор-пояснение приложения youtube.com/watch?v=5QCxBBQJFR0
+[Обзор-пояснение приложения](https://youtube.com/watch?v=5QCxBBQJFR0 "видео")
+ 
 
